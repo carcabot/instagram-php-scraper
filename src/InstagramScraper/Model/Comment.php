@@ -51,6 +51,11 @@ class Comment extends AbstractModel
     protected $isLoaded = false;
 
     /**
+     * @var int
+     */
+    protected $likesCount = 0;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -133,6 +138,11 @@ class Comment extends AbstractModel
             case 'owner':
                 $this->owner = Account::create($value);
                 break;
+            case 'edge_liked_by':
+                if (isset($value['count'])) {
+                    $this->likesCount = (int) $value['count'];
+                }
+                break;
             case 'edge_threaded_comments':
                 if (isset($value['count'])) {
                     $this->childCommentsCount = (int) $value['count'];
@@ -152,4 +162,28 @@ class Comment extends AbstractModel
         }
     }
 
+
+    /**
+     * Get the value of likesCount
+     *
+     * @return  int
+     */
+    public function getLikesCount()
+    {
+        return $this->likesCount;
+    }
+
+    /**
+     * Set the value of likesCount
+     *
+     * @param  int  $likesCount
+     *
+     * @return  self
+     */
+    public function setLikesCount(int $likesCount)
+    {
+        $this->likesCount = $likesCount;
+
+        return $this;
+    }
 }
