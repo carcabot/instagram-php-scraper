@@ -983,7 +983,7 @@ class Instagram
       * @param null $maxId
       * @param bool $paginateInd (=false)
       *
-      * @return Comment[]
+      * @return Comment[]|Object
       * @throws InstagramException
       */
     public function getMediaCommentsByCode($code, $count = 10, $maxId = null, $paginateInd = false)
