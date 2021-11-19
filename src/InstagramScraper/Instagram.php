@@ -1014,18 +1014,18 @@ class Instagram
             $jsonResponse = $this->decodeRawBodyToJson($response->raw_body);
 
             if (
-                !isset($jsonResponse['data']['shortcode_media']['edge_media_to_comment']['edges'])
-                || !isset($jsonResponse['data']['shortcode_media']['edge_media_to_comment']['count'])
-                || !isset($jsonResponse['data']['shortcode_media']['edge_media_to_comment']['page_info']['has_next_page'])
-                || !array_key_exists('end_cursor', $jsonResponse['data']['shortcode_media']['edge_media_to_comment']['page_info'])
+                !isset($jsonResponse['data']['shortcode_media']['edge_media_to_parent_comment']['edges'])
+                || !isset($jsonResponse['data']['shortcode_media']['edge_media_to_parent_comment']['count'])
+                || !isset($jsonResponse['data']['shortcode_media']['edge_media_to_parent_comment']['page_info']['has_next_page'])
+                || !array_key_exists('end_cursor', $jsonResponse['data']['shortcode_media']['edge_media_to_parent_comment']['page_info'])
             ) {
                 throw new InstagramException('Response code is ' . $response->code . '. Body: ' . static::getErrorBody($response->body) . ' Something went wrong. Please report issue.', $response->code);
             }
 
-            $nodes = $jsonResponse['data']['shortcode_media']['edge_media_to_comment']['edges'];
-            $hasPrevious = $jsonResponse['data']['shortcode_media']['edge_media_to_comment']['page_info']['has_next_page'];
-            $numberOfComments = $jsonResponse['data']['shortcode_media']['edge_media_to_comment']['count'];
-            $maxId = $jsonResponse['data']['shortcode_media']['edge_media_to_comment']['page_info']['end_cursor'];
+            $nodes = $jsonResponse['data']['shortcode_media']['edge_media_to_parent_comment']['edges'];
+            $hasPrevious = $jsonResponse['data']['shortcode_media']['edge_media_to_parent_comment']['page_info']['has_next_page'];
+            $numberOfComments = $jsonResponse['data']['shortcode_media']['edge_media_to_parent_comment']['count'];
+            $maxId = $jsonResponse['data']['shortcode_media']['edge_media_to_parent_comment']['page_info']['end_cursor'];
 
             if (empty($nodes) && $numberOfComments === 0) {
                 break;
