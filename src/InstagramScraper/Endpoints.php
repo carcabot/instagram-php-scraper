@@ -231,7 +231,7 @@ class Endpoints
         return $url;
     }
 
-    public static function getUserStoriesLink($variables=[])
+    public static function getUserStoriesLink($variables = [])
     {
         $url = self::getGraphQlUrl(InstagramQueryId::USER_STORIES, ['variables' => json_encode($variables)]);
         return $url;
@@ -304,5 +304,17 @@ class Endpoints
     public static function getThreadsApproveMultipleUrl()
     {
         return static::THREADS_APPROVE_MULTIPLE_URL;
+    }
+
+    public static function getCommentNode($shortcode_media)
+    {
+        if (isset($shortcode_media['edge_media_to_comment'])) {
+            return 'edge_media_to_comment';
+        } elseif (isset($shortcode_media['edge_media_to_parent_comment'])) {
+            return 'edge_media_to_parent_comment';
+        } elseif (isset($shortcode_media['edge_media_preview_comment'])) {
+            return 'edge_media_preview_comment';
+        }
+        return false;
     }
 }
