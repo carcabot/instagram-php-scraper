@@ -970,9 +970,9 @@ class Instagram
      * @return Comment[]|Object
      * @throws InstagramException
      */
-    public function getPaginateMediaCommentsByCode($code, $count = 10, $maxId = null)
+    public function getPaginateMediaCommentsByCode($code, $count = 10, $maxId = null, $force = false)
     {
-        return static::getMediaCommentsByCode($code, $count, $maxId, true);
+        return static::getMediaCommentsByCode($code, $count, $maxId, true, $force);
     }
 
     /**
@@ -984,7 +984,7 @@ class Instagram
      * @return Comment[]|Object
      * @throws InstagramException
      */
-    public function getMediaCommentsByCode($code, $count = 10, $maxId = null, $paginateInd = false)
+    public function getMediaCommentsByCode($code, $count = 10, $maxId = null, $paginateInd = false, $force = false)
     {
         $comments = [];
         $index = 0;
@@ -1002,7 +1002,7 @@ class Instagram
                 'after' => (string)$maxId
             ]);
 
-            $commentsUrl = Endpoints::getCommentsBeforeCommentIdByCode($variables);
+            $commentsUrl = Endpoints::getCommentsBeforeCommentIdByCode($variables, $force);
             $response = Request::get($commentsUrl, $this->generateHeaders($this->userSession, $this->generateGisToken($variables)));
 
             if (static::HTTP_OK !== $response->code) {
