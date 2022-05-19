@@ -127,6 +127,7 @@ class Comment extends AbstractModel
     {
         switch ($prop) {
             case 'id':
+            case 'pk':
                 $this->id = $value;
                 break;
             case 'created_at':
@@ -142,6 +143,12 @@ class Comment extends AbstractModel
                 if (isset($value['count'])) {
                     $this->likesCount = (int) $value['count'];
                 }
+                break;
+            case 'comment_like_count':
+                $this->likesCount = (int) $value;
+                break;
+            case 'child_comment_count':
+                $this->childCommentsCount = (int)$value;
                 break;
             case 'edge_threaded_comments':
                 if (isset($value['count'])) {
